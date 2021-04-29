@@ -79,7 +79,7 @@ namespace Simple_Youtube_CLI
             return false;
         }
 
-        public static int GetLikeNumber(int _videoId)
+        public static int GetLikesNumber(int _videoId)
         {
             using (var db = new Database())
             {
@@ -96,7 +96,7 @@ namespace Simple_Youtube_CLI
             return 0;
         }
 
-        public static int GetDislikeNumber(int _videoId)
+        public static int GetDislikesNumber(int _videoId)
         {
             using (var db = new Database())
             {

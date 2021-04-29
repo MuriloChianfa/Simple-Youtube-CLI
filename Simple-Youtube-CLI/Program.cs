@@ -3,14 +3,14 @@ using System.Threading;
 
 using Microsoft.Data.Sqlite;
 
-using Simple_Youtube_CLI.Logged;
-
 namespace Simple_Youtube_CLI
 {
     class Program
     {
         public static void Main()
         {
+            Console.ForegroundColor = Constants.Color;
+
             int option;
 
             do
@@ -46,6 +46,8 @@ namespace Simple_Youtube_CLI
             catch (SqliteException err)
             {
                 Console.WriteLine(err.Message);
+
+                Console.ResetColor();
                 System.Environment.Exit(1);
             }
             
@@ -79,9 +81,9 @@ namespace Simple_Youtube_CLI
                 {
                     Account account = Account.GetAccount(username, password);
 
-                    Logged.Logged.SetAccount(account);
+                    Simple_Youtube_CLI.Logged.Logged.SetAccount(account);
 
-                    Logged.Logged.Menu();
+                    Simple_Youtube_CLI.Logged.Logged.Menu();
                 }
                 catch (InvalidOperationException)
                 {
@@ -97,6 +99,8 @@ namespace Simple_Youtube_CLI
                     Console.Clear();
 
                     Console.WriteLine(err.Message);
+
+                    Console.ResetColor();
                     System.Environment.Exit(1);
                 }
             } while (true);
@@ -135,9 +139,9 @@ namespace Simple_Youtube_CLI
 
                         if (Account.AddAccount(account))
                         {
-                            Logged.Logged.SetAccount(Account.GetAccount(username, password));
+                            Simple_Youtube_CLI.Logged.Logged.SetAccount(Account.GetAccount(username, password));
 
-                            Logged.Logged.Menu();
+                            Simple_Youtube_CLI.Logged.Logged.Menu();
                         }
                     }
                 }
@@ -146,6 +150,8 @@ namespace Simple_Youtube_CLI
                     Console.Clear();
 
                     Console.WriteLine(err.Message);
+
+                    Console.ResetColor();
                     System.Environment.Exit(1);
                 }
             } while (true);
@@ -157,7 +163,9 @@ namespace Simple_Youtube_CLI
             {
                 Console.Clear();
 
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Saindo do sistema{0}", (new String('.', i)));
+                Console.ResetColor();
 
                 Thread.Sleep(350);
             }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simple_Youtube_CLI
 {
@@ -12,7 +10,7 @@ namespace Simple_Youtube_CLI
 
         public static Dictionary<int, int> likeCount;
 
-        public static Dictionary<int, int> dislikeCount = new Dictionary<int, int>();
+        public static Dictionary<int, int> dislikeCount;
 
         public static void OrderVideos(List<Video> _videos)
         {
@@ -21,13 +19,13 @@ namespace Simple_Youtube_CLI
 
             foreach (Video video in _videos)
             {
-                likeCount.Add(video.videoId, Video.GetLikeNumber(video.videoId));
-                dislikeCount.Add(video.videoId, Video.GetDislikeNumber(video.videoId));
+                likeCount.Add(video.videoId, Video.GetLikesNumber(video.videoId));
+                dislikeCount.Add(video.videoId, Video.GetDislikesNumber(video.videoId));
             }
 
             videos = _videos;
 
-            while (true)
+            for (; ; )
             {
                 Console.Clear();
 
@@ -89,8 +87,8 @@ namespace Simple_Youtube_CLI
                 Console.WriteLine($"\tCategoria: {video.category}");
                 Console.WriteLine($"\tData de publicação: {video.createdAt}");
                 Console.WriteLine($"\tVisualizacoes: {video.views}");
-                Console.WriteLine($"\tLikes: {Video.GetLikeNumber(video.videoId)}");
-                Console.WriteLine($"\tDeslikes: {Video.GetDislikeNumber(video.videoId)}");
+                Console.WriteLine($"\tLikes: {Video.GetLikesNumber(video.videoId)}");
+                Console.WriteLine($"\tDeslikes: {Video.GetDislikesNumber(video.videoId)}");
                 Console.WriteLine("\tCanal: {0}\n", (Account.GetUsernameById(video.owner)));
             }
         }
