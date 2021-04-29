@@ -17,3 +17,57 @@ $ Install-Package Microsoft.EntityFrameworkCore.Tools
 $ Add-Migration InitialCreate
 $ Update-Database
 ```
+
+# Some examples:
+
+<br />
+
+## MainMenu
+<p align="center">
+	- ![Alt text](Images/Image-10.png)
+</p>
+
+## List all uploaded videos
+<p align="center">
+	- ![Alt text](Images/Image-9.png)
+</p>
+
+## Editing one exitent video
+<p align="center">
+	- ![Alt text](Images/Image-3.png)
+</p>
+
+## View one video
+<p align="center">
+	- ![Alt text](Images/Image-7.png)
+</p>
+
+## Upload a new video
+<p align="center">
+	- ![Alt text](Images/Image-8.png)
+</p>
+
+## Editing the profile
+<p align="center">
+	- ![Alt text](Images/Image-2.png)
+</p>
+
+## Remove the account
+<p align="center">
+	- ![Alt text](Images/Image-5.png)
+</p>
+
+## Not have permission to edit this video
+<p align="center">
+	- ![Alt text](Images/Image-4.png)
+</p>
+
+## Listing just my videos
+<p align="center">
+	- ![Alt text](Images/Image-6.png)
+</p>
+
+## Login Menu
+<p align="center">
+	- ![Alt text](Images/Image-1.png)
+</p>
