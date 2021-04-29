@@ -87,8 +87,8 @@ namespace Simple_Youtube_CLI
                 Console.WriteLine($"\tCategoria: {video.category}");
                 Console.WriteLine($"\tData de publicação: {video.createdAt}");
                 Console.WriteLine($"\tVisualizacoes: {video.views}");
-                Console.WriteLine($"\tLikes: {Video.GetLikesNumber(video.videoId)}");
-                Console.WriteLine($"\tDeslikes: {Video.GetDislikesNumber(video.videoId)}");
+                Console.WriteLine($"\tLikes: {likeCount.GetValueOrDefault(video.videoId)}");
+                Console.WriteLine($"\tDeslikes: {dislikeCount.GetValueOrDefault(video.videoId)}");
                 Console.WriteLine("\tCanal: {0}\n", (Account.GetUsernameById(video.owner)));
             }
         }
