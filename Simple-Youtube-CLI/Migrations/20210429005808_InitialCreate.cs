@@ -24,6 +24,34 @@ namespace Simple_Youtube_CLI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dislikes",
+                columns: table => new
+                {
+                    dislikeId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    videoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    dislikedBy = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dislikes", x => x.dislikeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    likeId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    videoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    likedBy = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => x.likeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VideoModel",
                 columns: table => new
                 {
@@ -31,8 +59,11 @@ namespace Simple_Youtube_CLI.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     title = table.Column<string>(type: "TEXT", nullable: true),
                     description = table.Column<string>(type: "TEXT", nullable: true),
+                    views = table.Column<int>(type: "INTEGER", nullable: false),
                     category = table.Column<int>(type: "INTEGER", nullable: false),
                     owner = table.Column<int>(type: "INTEGER", nullable: false),
+                    createdAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    updatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Discriminator = table.Column<string>(type: "TEXT", nullable: false),
                     accountId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
@@ -55,6 +86,12 @@ namespace Simple_Youtube_CLI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Dislikes");
+
+            migrationBuilder.DropTable(
+                name: "Likes");
+
             migrationBuilder.DropTable(
                 name: "VideoModel");
 

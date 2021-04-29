@@ -39,6 +39,40 @@ namespace Simple_Youtube_CLI.Migrations
                     b.ToTable("Accounts");
                 });
 
+            modelBuilder.Entity("Simple_Youtube_CLI.Dislike", b =>
+                {
+                    b.Property<int>("dislikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("dislikedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("videoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("dislikeId");
+
+                    b.ToTable("Dislikes");
+                });
+
+            modelBuilder.Entity("Simple_Youtube_CLI.Like", b =>
+                {
+                    b.Property<int>("likeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("likedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("videoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("likeId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("Simple_Youtube_CLI.VideoModel", b =>
                 {
                     b.Property<int>("videoId")
@@ -55,6 +89,9 @@ namespace Simple_Youtube_CLI.Migrations
                     b.Property<int>("category")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("description")
                         .HasColumnType("TEXT");
 
@@ -63,6 +100,12 @@ namespace Simple_Youtube_CLI.Migrations
 
                     b.Property<string>("title")
                         .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("updatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("views")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("videoId");
 

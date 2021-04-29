@@ -51,6 +51,67 @@ namespace Simple_Youtube_CLI
 
             return false;
         }
+
+        public static bool View(int _videoId)
+        {
+            using (var db = new Database())
+            {
+                try
+                {
+                    Video video = db.Videos.Where(video => video.videoId == _videoId).First();
+
+                    if (video != null)
+                    {
+                        video.views++;
+
+                        db.Update(video);
+                        db.SaveChanges();
+
+                        return true;
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    // pass if not found
+                }
+            }
+
+            return false;
+        }
+
+        public static int GetLikeNumber(int _videoId)
+        {
+            using (var db = new Database())
+            {
+                try
+                {
+                    return db.Likes.Where(like => like.videoId == _videoId).ToList().Count;
+                }
+                catch (InvalidOperationException)
+                {
+                    // pass if not found
+                }
+            }
+
+            return 0;
+        }
+
+        public static int GetDislikeNumber(int _videoId)
+        {
+            using (var db = new Database())
+            {
+                try
+                {
+                    return db.Dislikes.Where(dislike => dislike.videoId == _videoId).ToList().Count;
+                }
+                catch (InvalidOperationException)
+                {
+                    // pass if not found
+                }
+            }
+
+            return 0;
+        }
         #endregion
     }
 }

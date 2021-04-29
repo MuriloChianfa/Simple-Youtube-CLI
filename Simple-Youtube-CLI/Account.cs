@@ -38,7 +38,14 @@ namespace Simple_Youtube_CLI
 
             using (var db = new Database())
             {
-                account = db.Accounts.Where(account => account.username == _username).First();
+                try
+                {
+                    account = db.Accounts.Where(account => account.username == _username).First();
+                }
+                catch (Exception)
+                {
+                    throw new ArgumentException("Username ou Senha inválidos!");
+                }
             }
 
             if (account.password != _password)

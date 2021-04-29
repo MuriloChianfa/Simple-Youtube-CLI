@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Simple_Youtube_CLI.Logged
 {
     public static class Logged
     {
         private static Account account;
+
+        public static Mutex listeningMutex = new(false, "listeningMutex");
+        public static bool listening = false;
 
         public static void SetAccount(Account _account)
         {
@@ -26,11 +30,14 @@ namespace Simple_Youtube_CLI.Logged
                 Console.WriteLine("|                             |");
                 Console.WriteLine("|    1 - Listar video(s)      |");
                 Console.WriteLine("|    2 - Listar meus videos   |");
-                Console.WriteLine("|    3 - Adicionar video      |");
-                Console.WriteLine("|    4 - Editar video         |");
-                Console.WriteLine("|    5 - Excluir video        |");
-                Console.WriteLine("|    6 - Editar conta         |");
                 Console.WriteLine("|                             |");
+                Console.WriteLine("|    3 - Visualizar video     |");
+                Console.WriteLine("|                             |");
+                Console.WriteLine("|    4 - Adicionar video      |");
+                Console.WriteLine("|    5 - Editar video         |");
+                Console.WriteLine("|    6 - Excluir video        |");
+                Console.WriteLine("|                             |");
+                Console.WriteLine("|    8 - Editar conta         |");
                 Console.WriteLine("|    9 - Excluir conta        |");
                 Console.WriteLine("|    0 - Deslogar             |");
                 Console.WriteLine("|                             |");
@@ -43,11 +50,14 @@ namespace Simple_Youtube_CLI.Logged
             {
                 case 1: ListAll(); break;
                 case 2: ListAll(true); break;
-                case 3: AddVideo(); break;
-                case 4: EditVideo(); break;
-                case 5: RemoveVideo(); break;
-                case 6: EditAccount(); break;
 
+                case 3: ViewVideo(); break;
+
+                case 4: AddVideo(); break;
+                case 5: EditVideo(); break;
+                case 6: RemoveVideo(); break;
+
+                case 8: EditAccount(); break;
                 case 9: RemoveAccount(); break;
                 case 0: account = null; Program.Main(); break;
 
@@ -74,21 +84,122 @@ namespace Simple_Youtube_CLI.Logged
                 {
                     Console.WriteLine("O youtube ainda não possui nenhum video!");
                 }
-                    
 
                 Console.Write("\nPressione ENTER para continuar...");
                 Console.ReadKey();
                 return;
             }
 
-            foreach (Video video in videos)
+            OrderingVideos.OrderVideos(videos);
+        }
+
+        private static void ViewVideo()
+        {
+            Console.Clear();
+
+            Console.WriteLine("\t< Visualização de Video >\n");
+
+            int videoId;
+            Console.WriteLine("Digite o número do video há ser visto!\n");
+
+            do
             {
-                Console.WriteLine($"Video {video.videoId}:");
-                Console.WriteLine($"\tTitulo: {video.title}");
-                Console.WriteLine($"\tDescrição: {video.description}");
-                Console.WriteLine($"\tCategoria: {video.category}");
-                Console.WriteLine("\tCanal: {0}\n", (Account.GetUsernameById(video.owner)));
+                do
+                {
+                    Console.Write("ID: ");
+                } while (!int.TryParse(Console.ReadLine(), out videoId));
+            } while (!Video.VerifyVideoById(videoId));
+
+            if (Video.View(videoId))
+            {
+                Console.WriteLine("\nVideo visto com sucesso!\n");
+
+                Console.WriteLine("Qual sua satisfação com este video ?\n");
+
+                Console.WriteLine("1 - Gostei");
+                Console.WriteLine("2 - Não gostei");
+                Console.WriteLine("3 - Sem opnião\n");
+
+                int option;
+                do
+                {
+                    Console.Write("Opção: ");
+                } while (!int.TryParse(Console.ReadLine(), out option) && !option.In(1, 2, 3));
+
+                try
+                {
+                    if (Vote.VerifyIfAlreadyVote(account.accountId, videoId))
+                    {
+                        int accountVote = Vote.WitchVote(account.accountId, videoId);
+
+                        if (accountVote != option)
+                        {
+                            if (option != 3)
+                            {
+                                Vote.SwitchVote(account.accountId, videoId);
+                            }
+                        }
+
+                        return;
+                    }
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err.Message);
+
+                    Console.Write("\nPressione ENTER para continuar...");
+                    Console.ReadKey();
+                    return;
+                }
+
+                switch(option)
+                {
+                    case 1:
+                        try
+                        {
+                            if (!Like.Vote(account.accountId, videoId))
+                            {
+                                throw new Exception("\nOcorreu algum problema ao votar!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nVoto computado com sucesso!");
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            Console.WriteLine(err.Message);
+                        }
+                        break;
+                    case 2:
+                        try
+                        {
+                            if (!Dislike.Vote(account.accountId, videoId))
+                            {
+                                throw new Exception("\nOcorreu algum problema ao votar!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nVoto computado com sucesso!");
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            Console.WriteLine(err.Message);
+                            return;
+                        }
+                        break;
+                    case 3:
+                        // 
+                        break;
+                }
+
+                Console.Write("\nPressione ENTER para continuar...");
+                Console.ReadKey();
+                return;
             }
+
+            Console.WriteLine("\nOcorreu algum problema ao ver o video!");
 
             Console.Write("\nPressione ENTER para continuar...");
             Console.ReadKey();
@@ -114,6 +225,8 @@ namespace Simple_Youtube_CLI.Logged
             {
                 Console.WriteLine($"\t{(UInt32)categoryListed} = {categoryListed.ToString()}");
             }
+
+            Console.Write("\n");
 
             do
             {
@@ -248,7 +361,7 @@ namespace Simple_Youtube_CLI.Logged
 
             if (account.RemoveVideo(videoId))
             {
-                Console.WriteLine("\nVideo Editado com sucesso!");
+                Console.WriteLine("\nVideo Excluido com sucesso!");
 
                 Console.Write("\nPressione ENTER para continuar...");
                 Console.ReadKey();

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 
+using Microsoft.Data.Sqlite;
+
 using Simple_Youtube_CLI.Logged;
 
 namespace Simple_Youtube_CLI
@@ -29,16 +31,24 @@ namespace Simple_Youtube_CLI
                 Console.Write("\nOpção: ");
             } while (!int.TryParse(Console.ReadLine(), out option));
             
-            switch (option)
+            try
             {
-                case 1: Login(); break;
-                case 2: Create(); break;
+                switch (option)
+                {
+                    case 1: Login(); break;
+                    case 2: Create(); break;
 
-                case 0: Exit(); break;
+                    case 0: Exit(); break;
 
-                default: Program.Main(); break;
+                    default: Program.Main(); break;
+                }
             }
-
+            catch (SqliteException err)
+            {
+                Console.WriteLine(err.Message);
+                System.Environment.Exit(1);
+            }
+            
             Program.Main();
         }
 
@@ -87,9 +97,7 @@ namespace Simple_Youtube_CLI
                     Console.Clear();
 
                     Console.WriteLine(err.Message);
-                    Console.Write("\nPressione ENTER para continuar...");
-
-                    Console.ReadKey();
+                    System.Environment.Exit(1);
                 }
             } while (true);
         }
@@ -138,9 +146,7 @@ namespace Simple_Youtube_CLI
                     Console.Clear();
 
                     Console.WriteLine(err.Message);
-                    Console.Write("\nPressione ENTER para continuar...");
-
-                    Console.ReadKey();
+                    System.Environment.Exit(1);
                 }
             } while (true);
         }
