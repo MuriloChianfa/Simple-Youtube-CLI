@@ -24,50 +24,50 @@ $ Update-Database
 
 ## MainMenu
 <p align="center">
-- ![Alt text](Images/Image-10.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-10.png">
 </p>
 
 ## List all uploaded videos
 <p align="center">
-- ![Alt text](Images/Image-9.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-9.png">
 </p>
 
 ## Editing one exitent video
 <p align="center">
-- ![Alt text](Images/Image-3.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-3.png">
 </p>
 
 ## View one video
 <p align="center">
-- ![Alt text](Images/Image-7.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-7.png">
 </p>
 
 ## Upload a new video
 <p align="center">
-- ![Alt text](Images/Image-8.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-8.png">
 </p>
 
 ## Editing the profile
 <p align="center">
-- ![Alt text](Images/Image-2.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-2.png">
 </p>
 
 ## Remove the account
 <p align="center">
-- ![Alt text](Images/Image-5.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-5.png">
 </p>
 
 ## Not have permission to edit this video
 <p align="center">
-- ![Alt text](Images/Image-4.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-4.png">
 </p>
 
 ## Listing just my videos
 <p align="center">
-- ![Alt text](Images/Image-6.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-6.png">
 </p>
 
 ## Login Menu
 <p align="center">
-- ![Alt text](Images/Image-1.png)
+	<img src="https://github.com/MuriloChianfa/Simple-Youtube-CLI/blob/main/Images/Image-1.png">
 </p>
