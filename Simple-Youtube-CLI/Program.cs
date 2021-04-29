@@ -100,8 +100,9 @@ namespace Simple_Youtube_CLI
 
                     Console.WriteLine(err.Message);
 
-                    Console.ResetColor();
-                    System.Environment.Exit(1);
+                    Console.Write("\nPressione ENTER para continuar...");
+
+                    Console.ReadKey();
                 }
             } while (true);
         }
@@ -151,8 +152,9 @@ namespace Simple_Youtube_CLI
 
                     Console.WriteLine(err.Message);
 
-                    Console.ResetColor();
-                    System.Environment.Exit(1);
+                    Console.Write("\nPressione ENTER para continuar...");
+
+                    Console.ReadKey();
                 }
             } while (true);
         }
